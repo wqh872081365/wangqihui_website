@@ -87,3 +87,15 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# wangqihui
+.xml
+将删除 .idea/dataSources.local.xml
+将删除 .idea/dataSources/
+将删除 .idea/inspectionProfiles/
+将删除 .idea/misc.xml
+将删除 .idea/modules.xml
+将删除 .idea/wangqihui_website.iml
+将删除 .idea/workspace.xml
+将删除 blog/migrations/
+将删除 db.sqlite3
