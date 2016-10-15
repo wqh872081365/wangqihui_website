@@ -3,9 +3,10 @@
 
 {% for article in article_list %}
 
-    <a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a>
+    <a href="{% url 'blog_index' article.pk %}">{{ article.title }}</a>
 
 {% endfor %}
+
 <strong> wangqihui </strong>
 
 {% endblock %}
