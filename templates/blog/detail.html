@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div><a href="{% url 'blog_index' %}">首页</a></div>
-
     {% if article.category %}
     <div><strong>文章所属类别：</strong></div>
     <div><a href="{% url 'blog_category' article.category.id %}" title="" rel="category">{{ article.category.name }}</a></div>

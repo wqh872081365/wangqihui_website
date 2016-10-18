@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
+{% load pagination_tags %}
 {% block content %}
 
     <div><strong>文章所属类别：</strong></div>
     <div><a href="{% url 'blog_category' category.id %}" title="" rel="category">{{ category.name }}</a></div>
 
     <div><strong>文章列表：</strong></div>
-    {% for article in article_list %}
-        <div><a href="{% url 'blog_article_detail' article.id %}">{{ article.title }}</a></div>
-    {% endfor %}
+
+    {% autopaginate article_list 2 %}
+
+        {% for article in article_list %}
+            <div><a href="{% url 'blog_article_detail' article.id %}">{{ article.title }}</a></div>
+        {% endfor %}
+
+    <div class="paginate-lt-con pull-right">{% paginate %}</div>
 
 {% endblock %}
