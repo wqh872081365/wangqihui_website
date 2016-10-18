@@ -11,26 +11,36 @@ class IndexView(View):
 
     def get(self, request):
         article_list = Article.objects.filter(status='p')
-        for article in article_list:
-            article.body = markdown2.markdown(article.body, )
-        return article_list
+        category_list = Category.objects.all()
+        # for article in article_list:
+        #     article.body = markdown2.markdown(article.body, )
+        print article_list
+        return render(request, "blog/index.html", {
+            "article_list": article_list,
+            "category_list": category_list,
+        })
 
 
 class ArticleDetailView(View):
 
-    def get(self, request):
-        obj = super(ArticleDetailView, self).get_object()
-        obj.body = markdown2.markdown(obj.body)
-        return obj
+    def get(self, request, article_id):
+        article = Article.objects.get(id=article_id)
+        # print article.title
+        # article.body = markdown2.markdown(article.body)
+        return render(request, "blog/detail.html", {
+            "article": article,
+        })
 
 
 class CategoryView(View):
 
-    def get(self, request):
-        # get_queryset 的作用已在第一篇中有介绍，不再赘述
-        article_list = Article.objects.filter(category=self.kwargs['cate_id'],status='p')
-        # 注意在url里我们捕获了分类的id作为关键字参数（cate_id）传递给了CategoryView，传递的参数在kwargs属性中获取。
-        for article in article_list:
-            article.body = markdown2.markdown(article.body, )
-        return article_list
+    def get(self, request, category_id):
+        article_list = Article.objects.filter(category=category_id, status='p')
+        category = Category.objects.get(id=category_id)
+        # for article in article_list:
+        #     article.body = markdown2.markdown(article.body, )
+        return render(request, "blog/category.html", {
+            "article_list": article_list,
+            "category": category,
+        })
 
