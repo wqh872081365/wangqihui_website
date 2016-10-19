@@ -10,6 +10,6 @@ from datetime import datetime, timedelta
 register = template.Library()
 
 
-# @register.simple_tag()
-# def count_sessions_by_tenant(sessions, tenant):
-#     return sessions.filter(tenant=tenant).count()
+@register.simple_tag()
+def count_article(article_list):
+    return article_list.count()

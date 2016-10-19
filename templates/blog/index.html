@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load pagination_tags %}
+{% load blog_tags %}
+
 
 {% block content %}
 
     <div><strong>文章列表：</strong></div>
 
-    {% autopaginate article_list 2 %}
+    {% autopaginate article_list 3 %}
 
         {% for article in article_list %}
             <div><a href="{% url 'blog_article_detail' article.id %}">{{ article.title }}</a></div>
@@ -13,6 +15,11 @@
 
     <div class="paginate-lt-con pull-right">{% paginate %}</div>
 
+    <div><strong>本页文章数：</strong></div>
+    <span>{% count_article  article_list %}</span>
+
+    <div><strong>文章总数：</strong></div>
+    <span>{{ article_number }}</span>
 
     <div><strong>文章分类：</strong></div>
 

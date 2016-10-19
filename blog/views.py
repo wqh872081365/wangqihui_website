@@ -14,10 +14,11 @@ class IndexView(View):
         category_list = Category.objects.all()
         # for article in article_list:
         #     article.body = markdown2.markdown(article.body, )
-        print article_list
+        article_number = article_list.count()
         return render(request, "blog/index.html", {
             "article_list": article_list,
             "category_list": category_list,
+            "article_number": article_number,
         })
 
 
@@ -37,10 +38,12 @@ class CategoryView(View):
     def get(self, request, category_id):
         article_list = Article.objects.filter(category=category_id, status='p')
         category = Category.objects.get(id=category_id)
+        article_number = article_list.count()
         # for article in article_list:
         #     article.body = markdown2.markdown(article.body, )
         return render(request, "blog/category.html", {
             "article_list": article_list,
             "category": category,
+            "article_number": article_number,
         })
 

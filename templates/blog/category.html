@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load pagination_tags %}
+{% load blog_tags %}
 {% block content %}
 
     <div><strong>文章所属类别：</strong></div>
@@ -14,5 +15,11 @@
         {% endfor %}
 
     <div class="paginate-lt-con pull-right">{% paginate %}</div>
+
+    <div><strong>该分类本页文章数：</strong></div>
+    <span>{% count_article  article_list %}</span>
+
+    <div><strong>该分类文章总数：</strong></div>
+    <span>{{ article_number }}</span>
 
 {% endblock %}
