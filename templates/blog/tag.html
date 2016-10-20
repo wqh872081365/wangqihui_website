@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load pagination_tags %}
+{% load blog_tags %}
+{% block content %}
+
+    <div><strong>文章所属标签：</strong></div>
+    <div><a href="{% url 'blog_tag' tag.id %}" title="" rel="category">{{ tag.name }}</a></div>
+
+    <div><strong>文章列表：</strong></div>
+
+    {% autopaginate article_list 2 %}
+
+        {% for article in article_list %}
+            <div><a href="{% url 'blog_article_detail' article.id %}">{{ article.title }}</a></div>
+        {% endfor %}
+
+    <div class="paginate-lt-con pull-right">{% paginate %}</div>
+
+    <div><strong>该标签本页文章数：</strong></div>
+    <span>{% count_article  article_list %}</span>
+
+    <div><strong>该标签文章总数：</strong></div>
+    <span>{{ article_number }}</span>
+
+{% endblock %}
