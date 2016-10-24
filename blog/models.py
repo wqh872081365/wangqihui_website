@@ -4,8 +4,23 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from collections import defaultdict
+
+
+class ArticleManager(models.Manager):
+
+    def archive(self):
+        date_list = Article.objects.datetimes('created_time', 'month', order='DESC')
+        date_dict = defaultdict(list)
+        for d in date_list:
+            date_dict[d.year].append(d.month)
+        return sorted(date_dict.items(), reverse=True)
+
 
 class Article(models.Model):
+
+    objects = ArticleManager()
+
     STATUS_CHOICES = (
         ('d', 'Draft'),
         ('p', 'Published'),
@@ -53,3 +68,5 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+

@@ -46,7 +46,14 @@
             <a href="{% url 'blog_tag' tag.id %}">{{ tag.name }}</a>:{% tag_count_article  tag.id %}
         {% endfor %}
     </div>
-    
+
+    {% for year,month_list in date_archive %}
+        {{year}} 年
+        {% for month in month_list %}
+            {{month}}月
+        {% endfor %}
+    {% endfor %}
+
     <div><strong> 作者：wangqihui </strong></div>
 
 {% endblock %}
