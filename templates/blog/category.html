@@ -3,23 +3,36 @@
 {% load blog_tags %}
 {% block content %}
 
-    <div><strong>文章所属类别：</strong></div>
-    <div><a href="{% url 'blog_category' category.id %}" title="" rel="category">{{ category.name }}</a></div>
+    <div>
+        <strong>文章所属类别：</strong><a href="{% url 'blog_category' category.id %}" title="" rel="category">{{ category.name }}</a>
+    </div>
 
     <div><strong>文章列表：</strong></div>
 
-    {% autopaginate article_list 2 %}
+    {% autopaginate articles 2 %}
 
-        {% for article in article_list %}
-            <div><a href="{% url 'blog_article_detail' article.id %}">{{ article.title }}</a></div>
+        {% for article in articles %}
+            <div>
+                标题：<a href="{% url 'blog_article_detail' article.article.id %}">{{ article.article.title }}</a>
+                {% if article.article.category %}
+                    分类：<a href="{% url 'blog_category' article.article.category.id %}">{{ article.article.category.name }}</a>
+                {% endif %}
+                {% if article.article_tags %}
+                    标签：
+                    {% for article_tag in article.article_tags %}
+                        <a href="{% url 'blog_tag' article_tag.id %}">{{ article_tag.name }}</a>
+                    {% endfor %}
+                {% endif %}
+                浏览量：{{ article.article.views }}
+                点赞数：{{ article.article.likes }}
+            </div>
         {% endfor %}
 
     <div class="paginate-lt-con pull-right">{% paginate %}</div>
 
-    <div><strong>该分类本页文章数：</strong></div>
-    <span>{% count_article  article_list %}</span>
-
-    <div><strong>该分类文章总数：</strong></div>
-    <span>{{ article_number }}</span>
+    <div>
+        <strong>该分类本页文章数：</strong>{% count_article  articles %}
+        <strong>该分类文章总数：</strong>{{ article_number }}
+    </div>
 
 {% endblock %}

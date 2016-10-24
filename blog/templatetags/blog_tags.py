@@ -12,15 +12,15 @@ register = template.Library()
 
 @register.simple_tag()
 def count_article(article_list):
-    return article_list.count()
+    return len(article_list)
 
 
 @register.simple_tag()
 def tag_count_article(tag_id):
-    return Article.objects.filter(tags=tag_id, status='p').count()
+    return len(Article.objects.filter(tags=tag_id, status='p'))
 
 
 @register.simple_tag()
 def category_count_article(category_id):
-    return Article.objects.filter(category=category_id, status='p').count()
+    return len(Article.objects.filter(category=category_id, status='p'))
 

@@ -2,18 +2,38 @@
 {% block content %}
 
     {% if article.category %}
-    <div><strong>文章所属类别：</strong></div>
-    <div><a href="{% url 'blog_category' article.category.id %}" title="" rel="category">{{ article.category.name }}</a></div>
+    <div>
+        <strong>文章所属类别：</strong><a href="{% url 'blog_category' article.category.id %}" title="" rel="category">{{ article.category.name }}</a>
+    </div>
     {% endif %}
 
-    <div><strong>文章详情：</strong></div>
-    <div><strong>文章标题：</strong></div>
-    <div><a href="{% url 'blog_article_detail' article.id %}" rel="bookmark">{{ article.title }}</a></div>
+    {% if article_tags %}
+    <div><strong>文章所属标签：</strong>
+        {% for article_tag in article_tags %}
+            <a href="{% url 'blog_tag' article_tag.id %}">{{ article_tag.name }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-    <div><strong>文章上次修改时间：</strong></div>
-    <div class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</div>
+    <div><strong>文章详情</strong></div>
+    <div>
+        <strong>文章标题：</strong><a href="{% url 'blog_article_detail' article.id %}" rel="bookmark">{{ article.title }}</a>
+    </div>
+
+    <div><strong>文章上次修改时间：</strong>{{ article.last_modified_time|date:"Y年n月d日" }}</div>
+
+    <div><strong>摘要：</strong></div>
+    {% if article.abstract %}
+        <div>
+            {{ article.abstract}}
+        </div>
+    {% endif %}
 
     <div><strong>正文：</strong></div>
     <div>{{ article.body |safe }}</div>
+
+    <div><strong>文章创建时间：</strong>{{ article.created_time|date:"Y年n月d日" }}</div>
+
+    <div><strong>浏览量：</strong>{{ article.views }}<strong>点赞数：</strong>{{ article.likes }}</div>
 
 {% endblock %}
