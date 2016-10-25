@@ -84,12 +84,18 @@ class TagView(View):
 
 class ArchiveView(View):
 
-    def get(self):
-        # 接收从url传递的year和month参数，转为int类型
-        year = int(self.kwargs['year'])
-        month = int(self.kwargs['month'])
-        # 按照year和month过滤文章
-        article_list = Article.objects.filter(created_time__year=year, created_time__month=month)
+    def get(self, request, year, month):
+        article_list = Article.objects.filter(created_time__year=int(year), created_time__month=int(month))
+        articles = []
         for article in article_list:
-            article.body = markdown2.markdown(article.body, extras=['fenced-code-blocks'], )
-        return article_list
+            article_tags = article.tags.all()
+            articles.append({"article": article, "article_tags": article_tags, })
+        article_number = article_list.count()
+        # for article in article_list:
+        #     article.body = markdown2.markdown(article.body, extras=['fenced-code-blocks'], )
+        return render(request, "blog/archive.html", {
+            "articles": articles,
+            "year": year,
+            "month": month,
+            "article_number": article_number,
+        })

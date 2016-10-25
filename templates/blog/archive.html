@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load pagination_tags %}
 {% load blog_tags %}
-
-
 {% block content %}
+
+    <div>
+        <strong>文章创建时间：</strong><a href="{% url 'blog_archive' year month %}">{{ year }}年{{ month }}月</a>
+    </div>
 
     <div><strong>文章列表：</strong></div>
 
-    {% autopaginate articles 3 %}
+    {% autopaginate articles 2 %}
 
         {% for article in articles %}
             <div>
@@ -29,33 +31,8 @@
     <div class="paginate-lt-con pull-right">{% paginate %}</div>
 
     <div>
-        <strong>本页文章数：</strong>{% count_article  articles %}
-        <strong>文章总数：</strong>{{ article_number }}
+        <strong>该分类本页文章数：</strong>{% count_article  articles %}
+        <strong>该分类文章总数：</strong>{{ article_number }}
     </div>
-
-    <div>
-        <strong>文章分类：</strong>
-        {% for category in category_list %}
-            <a href="{% url 'blog_category' category.id %}">{{ category.name }}</a>: {% category_count_article  category.id %}
-        {% endfor %}
-    </div>
-
-    <div>
-        <strong>文章标签：</strong>
-        {% for tag in tag_list %}
-            <a href="{% url 'blog_tag' tag.id %}">{{ tag.name }}</a>:{% tag_count_article  tag.id %}
-        {% endfor %}
-    </div>
-
-    {% for year,month_list in date_archive %}
-        <div>
-        {{year}} 年
-        {% for month in month_list %}
-            <a href="{% url 'blog_archive' year month %}">{{ month }}月</a>
-        {% endfor %}
-        </div>
-    {% endfor %}
-
-    <div><strong> 作者：wangqihui </strong></div>
 
 {% endblock %}

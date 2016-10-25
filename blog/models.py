@@ -10,7 +10,7 @@ from collections import defaultdict
 class ArticleManager(models.Manager):
 
     def archive(self):
-        date_list = Article.objects.datetimes('created_time', 'month', order='DESC')
+        date_list = Article.objects.filter(status='p').datetimes('created_time', 'month', order='DESC')
         date_dict = defaultdict(list)
         for d in date_list:
             date_dict[d.year].append(d.month)

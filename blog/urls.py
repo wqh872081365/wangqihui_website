@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'article/(?P<article_id>\d+)/$', views.ArticleDetailView.as_view(), name='blog_article_detail'),
     url(r'category/(?P<category_id>\d+)/$', views.CategoryView.as_view(), name='blog_category'),
     url(r'tag/(?P<tag_id>\d+)/$', views.TagView.as_view(), name='blog_tag'),
+    url(r'^archive/(?P<year>\d+)/(?P<month>\d+)/$', views.ArchiveView.as_view(), name='blog_archive'),
 ]
