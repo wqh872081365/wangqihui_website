@@ -17,7 +17,6 @@ urlpatterns = patterns(
     url(r'tag/(?P<tag_id>\d+)/$', views.TagView.as_view(), name='blog_tag'),
     url(r'archive/(?P<year>\d+)/(?P<month>\d+)/$', views.ArchiveView.as_view(), name='blog_archive'),
 
-    # url(r'api/', api_root),
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'api/$', rest_views.api_root),
