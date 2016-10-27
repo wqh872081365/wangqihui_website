@@ -20,12 +20,15 @@ urlpatterns = patterns(
     # url(r'api/', api_root),
     url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
-    url(r'api/articles/$', rest_views.ArticleListView.as_view()),
-    url(r'api/articles/(?P<article_id>\d+)/$', rest_views.ArticleDetailView.as_view()),
-    url(r'api/categorys/$', rest_views.CategoryListView.as_view()),
-    url(r'api/categorys/(?P<category_id>\d+)/$', rest_views.CategoryDetailView.as_view()),
-    url(r'api/tags/$', rest_views.TagListView.as_view()),
-    url(r'api/tags/(?P<tag_id>\d+)/$', rest_views.TagDetailView.as_view()),
+    url(r'api/$', rest_views.api_root),
+    url(r'api/articles/list/$', rest_views.ArticleListView.as_view(), name='article_list'),
+    url(r'api/articles/(?P<article_id>\d+)/$', rest_views.ArticleDetailView.as_view(), name='article_detail'),
+    url(r'api/categorys/list/$', rest_views.CategoryListView.as_view(), name='category_list'),
+    url(r'api/categorys/(?P<category_id>\d+)/$', rest_views.CategoryDetailView.as_view(), name='category_detail'),
+    url(r'api/categorys/articles_list/(?P<category_id>\d+)/$', rest_views.CategoryArticleListView.as_view(), name='category_article_list'),
+    url(r'api/tags/list/$', rest_views.TagListView.as_view(), name='tag_list'),
+    url(r'api/tags/(?P<tag_id>\d+)/$', rest_views.TagDetailView.as_view(), name='tag_detail'),
+    url(r'api/tags/articles_list/(?P<tag_id>\d+)/$', rest_views.TagArticleListView.as_view(), name='tag_article_list'),
 )
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
